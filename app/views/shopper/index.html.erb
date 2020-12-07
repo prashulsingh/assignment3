@@ -1,0 +1,41 @@
+
+
+<% if notice %>
+<p id="notice"><%=notice%></p>
+<%end%>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for books.." title="Type in a name">
+    <% @products.each do |product| %>
+    <div class="entry">
+        <%= image_tag(product.image) %>
+        <h3><%= product.name %></h3>
+        <p><%= sanitize(product.description) %></p>
+        <div class ="price_line">  
+             <span class="price"> <%= product.price %>$</span>
+        </div>
+        <%= button_to 'Add to Cart', lineitems_path(product_id:product),class:'add_to_cart', remote:true %>
+        <%# <div class="list_actions">
+            <%= link_to 'Add', add_product_path(product) %>
+        <%#</div> %>
+    </div>
+    <% end %>
+
+    <script>
+    function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementsByClassName("entry");
+   
+    for (i = 0; i < div.length; i++) {
+        a = div[i];
+        console.log( txtValue );
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().includes( filter ) ) {
+            a.style.display = "";
+        } else {
+            a.style.display = "none";
+        }
+    }
+}
+    </script>
